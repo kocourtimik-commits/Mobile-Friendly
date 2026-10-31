@@ -863,12 +863,24 @@ function customImg(src,fallback){
     'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">'+
     '</span>';
 }
+/* optional per-app beer art: icons/beer/<id>.png
+   missing files silently fall back to the built-in beer glass */
+const BEER_ICONS={
+  // settings:'beer/settings.png',
+  // pinkkit:'beer/pinkkit.png',
+  // notes:'beer/notes.png',
+  // ...
+};
 function appSVG(a){
   const fb=(a.g==='pinwheel')?icon(a.c1,a.c2,pinwheel()):icon(a.c1,a.c2,G[a.g]||G.lines,a.diag);
-  if(S.beerMode&&!CUSTOM_ICONS[a.id])return beerIcon();
+  if(S.beerMode){
+    if(BEER_ICONS[a.id])return customImg(BEER_ICONS[a.id],beerIcon());
+    return beerIcon();
+  }
   if(CUSTOM_ICONS[a.id])return customImg(CUSTOM_ICONS[a.id],fb);
   return fb;
 }
+
 
 const BEER_NAMES={
   settings:'Beertings',pinkkit:'BeerKit',notes:'Beers',hackify:'Beerify',
