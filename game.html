@@ -84,14 +84,15 @@ box-shadow:0 12px 40px rgba(0,0,0,.35)}
 @keyframes slideIn{from{transform:translateY(-8px);opacity:0}to{transform:translateY(0);opacity:1}}
 
 .home{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;padding:46px 10px 0;overflow:hidden}
-.pages{flex:1;display:flex;width:200%;min-height:0;transition:transform .35s cubic-bezier(.32,.72,0,1)}
-.page{width:50%;flex:0 0 50%;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:8px 2px 2px}
+.pages{flex:1;display:flex;width:200%;min-height:0;overflow:hidden;transition:transform .35s cubic-bezier(.32,.72,0,1)}
+.page{width:50%;flex:0 0 50%;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:8px 2px 2px;min-width:0}
 .page::-webkit-scrollbar{display:none}
-.apps-8{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 4px;padding:2px 0}
+.apps-8{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 4px;padding:2px 0}
 .app{display:flex;flex-direction:column;align-items:center;cursor:pointer;position:relative;min-width:0}
 .app:active .ico{transform:scale(.9)}
 .ico{width:58px;height:58px;border-radius:15px;position:relative;box-shadow:0 3px 8px rgba(0,0,0,.32);transition:transform .12s;overflow:hidden}
 .ico svg{display:block;width:100%;height:100%}
+.ico img{display:block;width:100%;height:100%;object-fit:cover}
 .app-name{font-size:10px;color:#fff;margin-top:4px;text-shadow:0 1px 2px rgba(0,0,0,.55);text-align:center;
 white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
 .screen.light .app-name{color:#1c1c1e;text-shadow:0 1px 0 rgba(255,255,255,.7)}
@@ -163,7 +164,7 @@ display:flex;flex-direction:column;overflow:hidden}
 .dr-head button{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
 .dr-body{flex:1;overflow-y:auto;padding:8px 14px}
 .dr-body::-webkit-scrollbar{display:none}
-.dr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 4px}
+.dr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 4px}
 .dr-search{padding:8px 14px 16px;flex-shrink:0}
 .dr-search .box{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:20px;padding:10px 14px}
 .dr-search svg{width:15px;height:15px;fill:none;stroke:#c7c7cc;stroke-width:2}
@@ -476,6 +477,111 @@ font-weight:700;padding:7px 11px;border-radius:10px;font-family:inherit;cursor:p
 
 .shutdown{position:absolute;inset:0;z-index:600;background:#000;display:none;align-items:center;justify-content:center;color:#fff;font-family:'Courier New',monospace;font-size:13px;text-align:center;padding:20px}
 .shutdown.show{display:flex}
+
+/* ============================================================
+   LANDSCAPE TABLET ON DESKTOP  (phones untouched below 900px)
+   ============================================================ */
+@media (min-width:900px) and (min-height:520px){
+  body{padding:18px;overflow:hidden}
+
+  .device{
+    width:min(1180px,94vw);
+    height:min(790px,90vh);
+    border-radius:42px;
+    padding:14px;
+    box-shadow:0 50px 120px rgba(0,0,0,.72),inset 0 0 0 2px #2b2b30;
+  }
+  .screen{border-radius:32px}
+  .chin{height:46px}
+  .home-btn{width:42px;height:42px}
+  .home-btn svg{width:18px;height:18px}
+
+  .status-bar{height:52px;padding:0 30px 10px;font-size:14.5px}
+  .st-time{font-size:16px}
+
+  .home{padding:54px 26px 6px}
+
+  /* ---------- page 1: apps left, now-playing + search right ---------- */
+  #page1{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 320px;
+    grid-template-areas:"apps ipod" "apps search";
+    align-content:start;
+    column-gap:32px;
+    row-gap:18px;
+    padding:4px 10px 0 2px;
+  }
+  #apps8{
+    grid-area:apps;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:28px 20px;
+    align-content:start;
+  }
+  #ipod{grid-area:ipod;margin:0;padding:14px;gap:12px}
+  #homeSearch{grid-area:search;margin:0;align-self:start}
+
+  /* ---------- page 2: the grid lives on the inner element, NOT on .page ---------- */
+  #page2{display:block;padding:4px 10px 0 2px}
+  #appsPage2{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:28px 20px;
+    align-content:start;
+    padding:0;
+  }
+
+  /* fluid icons — scale with the cell, never overflow */
+  .app{min-width:0}
+  .ico{width:100%;max-width:92px;height:auto;aspect-ratio:1;border-radius:20px}
+  .lock{border-radius:20px}
+  .app-name{font-size:12px;max-width:104px;margin-top:7px}
+
+  .dock{max-width:520px;margin:auto auto 0;padding:12px 16px;border-radius:28px}
+  .dock .ico{width:100%;max-width:72px;height:auto;aspect-ratio:1}
+
+  .ipod-screen{padding:11px;border-radius:12px}
+  .ipod-top{font-size:9.5px;margin-bottom:8px}
+  .art{width:56px;height:56px}
+  .ipod-title{font-size:13px}
+  .ipod-sub{font-size:10.5px}
+  .wheel{width:104px;height:104px}
+  .wheel .center{width:44px;height:44px;margin:-22px}
+
+  .gsb{padding:12px 18px;border-radius:22px}
+  .gsb .ph{font-size:14.5px}
+  .dots{padding:10px 0 2px}
+  .handle{padding:6px 0 6px}
+
+  /* ---------- app windows ---------- */
+  .app-w{top:12px;border-radius:30px}
+  .app-head{height:56px;padding:0 8px}
+  .app-head .t{font-size:18px}
+  .app-body{padding:22px 26px;max-width:960px;margin:0 auto;width:100%}
+  .app-body.calc-body{max-width:460px;margin:0 auto;padding:16px}
+  .calc-disp{font-size:42px}
+  .calc-grid{gap:12px}
+  .grid2{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .map-frame{height:420px}
+  .chat{max-height:400px}
+  .grp{border-radius:16px}
+  .row{padding:14px 18px;font-size:15px}
+  .btn{padding:13px 18px;font-size:15px}
+  .section{font-size:12px;padding:16px 4px 8px}
+
+  /* ---------- app drawer ---------- */
+  .drawer{top:16px;border-radius:34px 34px 0 0}
+  .dr-head{padding:18px 26px 8px}
+  .dr-head h2{font-size:22px}
+  .dr-body{padding:10px 22px}
+  .dr-grid{grid-template-columns:repeat(8,minmax(0,1fr));gap:26px 14px}
+  .dr-search{padding:12px 26px 20px;max-width:520px;margin:0 auto;width:100%}
+
+  .notif-drawer{max-height:520px;border-radius:0 0 30px 30px}
+  .nd-head{padding:14px 30px}
+  .banner{top:60px;left:26px;right:26px}
+  .popwin{width:290px}
+  .ov .dlg{max-width:420px}
+}
 </style>
 </head>
 <body>
@@ -812,11 +918,7 @@ function pinwheel(){
 }
 function beerIcon(){return icon('#f7c948','#a9700c',G.beer)}
 
-/* ================= CUSTOM ICON TEXTURES =================
-   Put your PNGs in ./icons/ next to index.html.
-   Filename must match the app id (lowercase, .png).
-   Delete a line if you don't have that art — the SVG shows instead.
-*/
+/* ================= CUSTOM ICON TEXTURES ================= */
 const ICON_DIR='icons';
 const CUSTOM_ICONS={
   settings:'settings.png',
@@ -856,20 +958,15 @@ function iconURL(src){
   if(!src)return '';
   return /^(data:|https?:|\/)/.test(src)?src:ICON_DIR+'/'+src;
 }
-/* PNG sits on top of the fallback SVG; if it 404s it deletes itself */
 function customImg(src,fallback){
   return '<span style="position:relative;display:block;width:100%;height:100%">'+(fallback||'')+
     '<img src="'+iconURL(src)+'" alt="" draggable="false" onerror="this.remove()" '+
     'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">'+
     '</span>';
 }
-/* optional per-app beer art: icons/beer/<id>.png
-   missing files silently fall back to the built-in beer glass */
 const BEER_ICONS={
   // settings:'beer/settings.png',
   // pinkkit:'beer/pinkkit.png',
-  // notes:'beer/notes.png',
-  // ...
 };
 function appSVG(a){
   const fb=(a.g==='pinwheel')?icon(a.c1,a.c2,pinwheel()):icon(a.c1,a.c2,G[a.g]||G.lines,a.diag);
@@ -880,7 +977,6 @@ function appSVG(a){
   if(CUSTOM_ICONS[a.id])return customImg(CUSTOM_ICONS[a.id],fb);
   return fb;
 }
-
 
 const BEER_NAMES={
   settings:'Beertings',pinkkit:'BeerKit',notes:'Beers',hackify:'Beerify',
@@ -1209,7 +1305,7 @@ function settingsHTML(){return `
 
   <div class="section">ABOUT</div>
   <div class="grp">
-    <div class="row" id="verRow"><span>Mobile Friendly OS</span><span class="v">v3.1</span></div>
+    <div class="row" id="verRow"><span>Mobile Friendly OS</span><span class="v">v3.4</span></div>
     <div class="row"><span>Points</span><span class="v" id="setPoints">0</span></div>
     <div class="row"><span>Credits</span><span class="v" id="setCredits">0</span></div>
   </div>`;}
@@ -3467,6 +3563,6 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&work.on)w
 window.addEventListener('beforeunload',()=>{if(LOFI.on)lofiStop()});
 boot();
 </script>
-<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/insights/script.js" onerror="this.remove()"></script>
 </body>
 </html>
