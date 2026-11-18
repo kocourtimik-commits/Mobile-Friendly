@@ -3949,11 +3949,12 @@ function schedulePopup(){
   const delay=(base[0]+Math.random()*(base[1]-base[0]))*60000;
   setTimeout(()=>{if(S.popups&&!S.disablePopups)showPopup()},FAST?15000:delay);
 }
-function showPopup(){
-  if(S.story!=='done'||S.ransomwareActive){setTimeout(schedulePopup,60000);return}
-  if(popupOpen||!S.popups)return;
+function showPopup(forced){
+  if(forced){const old=$('randPopup');if(old)old.remove();popupOpen=false}
+  else if(S.story!=='done'||S.ransomwareActive){setTimeout(schedulePopup,60000);return}
+  if(!forced&&(popupOpen||!S.popups))return;
   popupOpen=true;
-  const tpl=POPUPS[Math.floor(Math.random()*POPUPS.length)];
+  const tpl=forced||POPUPS[Math.floor(Math.random()*POPUPS.length)];
   popupCur={...tpl,done:false};
   notify('popup','🛑 POPUP ALERT: '+tpl.title+' — complete it for +'+tpl.r+' points.');
   const screen=$('screen');
@@ -4306,6 +4307,7 @@ $('clock').addEventListener('click',e=>{
 function devMenu(){
   const ov=dialog('<h2>🛠 Developer menu</h2><p>For testing only.</p>'+
     '<button class="btn" id="dvPts">+1000 points</button>'+
+    '<button class="btn" id="dvPop">Popup test</button>'+
     '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 2px"><span style="font-size:14px;color:#1c1c1e">Skip app downloads</span>'+
       '<label class="switch"><input type="checkbox" id="dvSkip"'+(S.devSkipDl?' checked':'')+'><span class="tr"></span><span class="th"></span></label></div>'+
     '<button class="btn" id="dvReset" style="color:#ff3b30">Restart game</button>'+
@@ -4315,6 +4317,14 @@ function devMenu(){
     S.points+=1000;save();
     if(currentApp&&RENDER[currentApp]){try{RENDER[currentApp]()}catch(e){}}
     toast('+1000 points. You have '+S.points+' now.');
+  };
+  ov.querySelector('#dvPop').onclick=()=>{
+    ov.remove();
+    const t=dialog('<h2>🧪 Popup test</h2><p>Tap one to open it.</p>'+
+      POPUPS.map((x,k)=>'<button class="btn" data-k="'+k+'">'+esc(x.title)+' <span style="opacity:.7;font-weight:400">(+'+x.r+')</span></button>').join('')+
+      '<button class="btn" data-close>Close</button>');
+    t.style.zIndex=700;
+    t.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{t.remove();showPopup(POPUPS[+b.dataset.k])});
   };
   ov.querySelector('#dvSkip').onchange=e=>{S.devSkipDl=e.target.checked;save();toast(S.devSkipDl?'App downloads are instant now.':'App downloads are normal again.')};
   const r=ov.querySelector('#dvReset');
