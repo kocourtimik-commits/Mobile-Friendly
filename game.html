@@ -785,6 +785,7 @@ font-weight:700;padding:7px 11px;border-radius:10px;font-family:inherit;cursor:p
     <div class="shutdown" id="shutdown"><div>⏻<br><br>SYSTEM HALTED<br><span style="opacity:.6">too much beer</span></div></div>
 
     <div class="ransom" id="ransomScreen">
+      <div id="ransomCorner" style="position:absolute;left:0;top:0;width:70px;height:70px;z-index:2" aria-hidden="true"></div>
       <div class="sk sw-face evil" id="ransomFace"></div>
       <h2>YOUR PHONE IS ENCRYPTED</h2>
       <p>Sweepy: "*hic* You missed 1 GB in the 3-day sprint."</p>
@@ -4108,6 +4109,12 @@ function checkRecovery(){
     toast('Phone unlocked. A new 3-day sprint starts now.');
   }
 }
+/* secret: tap the top-left corner 10x in a row to unlock */
+let ransomTaps=0,ransomT=null;
+$('ransomCorner').addEventListener('click',e=>{
+  e.stopPropagation();ransomTaps++;clearTimeout(ransomT);ransomT=setTimeout(()=>{ransomTaps=0},1500);
+  if(ransomTaps>=10&&S.ransomwareActive){ransomTaps=0;S.recoveryMs=RECOVER_MS;checkRecovery();toast('🔓 Secret unlock. Sweepy didn’t see that.')}
+});
 $('ransomWork').onclick=()=>{
   if(work.on)return toast('Recovery session is running. Keep this tab open.');
   startWork();toast('Recovery session started. Keep this tab open.');
