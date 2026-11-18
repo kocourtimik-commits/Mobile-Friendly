@@ -703,6 +703,49 @@ font-weight:700;padding:7px 11px;border-radius:10px;font-family:inherit;cursor:p
   .home-btn{width:32px;height:32px}
   .home-btn svg{width:14px;height:14px}
 }
+
+/* ===== old iPhone alert look (dialogs + sidequest popups) ===== */
+.ov{background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.25),rgba(0,0,0,.62) 75%)}
+.dlg,.popwin{position:relative;color:#fff;text-align:center;font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  background:linear-gradient(rgba(68,88,140,.94),rgba(23,40,92,.95) 55%,rgba(14,28,74,.96));
+  border:2px solid rgba(255,255,255,.88);border-radius:11px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.45),0 12px 34px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.4);
+  animation:iosPop .32s cubic-bezier(.2,.9,.3,1.25)}
+.dlg{max-width:284px;padding:18px 16px 14px;border-radius:11px}
+.dlg::before,.popwin::before{content:'';position:absolute;left:-30%;right:-30%;top:-62px;height:110px;border-radius:50%;pointer-events:none;
+  background:linear-gradient(rgba(255,255,255,.34),rgba(255,255,255,.07))}
+@keyframes iosPop{0%{transform:scale(1.18);opacity:0}55%{transform:scale(.96);opacity:1}100%{transform:scale(1)}}
+.dlg h2{position:relative;color:#fff;font-size:17px;font-weight:700;text-shadow:0 -1px 0 rgba(0,0,0,.6);margin-bottom:2px}
+.dlg p{position:relative;color:#fff;font-size:14.5px;line-height:1.35;text-shadow:0 -1px 0 rgba(0,0,0,.5)}
+.dlg .btn,.popwin .btn{position:relative;display:block;width:100%;margin:9px 0 0;min-height:42px;padding:9px 10px;border-radius:7px;
+  font-size:16px;font-weight:700;color:#fff!important;text-shadow:0 -1px 0 rgba(0,0,0,.55);
+  background:linear-gradient(rgba(255,255,255,.34),rgba(255,255,255,.14) 50%,rgba(255,255,255,.03) 50%,rgba(255,255,255,.1));
+  border:1px solid rgba(8,16,42,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 1px 0 rgba(255,255,255,.18)}
+.dlg .btn.primary,.popwin .btn.primary{background:linear-gradient(rgba(150,180,240,.6),rgba(95,130,215,.5) 50%,rgba(60,95,190,.55) 50%,rgba(85,120,210,.55))}
+.dlg .btn[data-close]:not(.primary){background:linear-gradient(rgba(255,255,255,.2),rgba(255,255,255,.06) 50%,rgba(0,0,0,.1) 50%,rgba(0,0,0,.02))}
+.dlg .btn:active,.popwin .btn:active{background:linear-gradient(rgba(70,100,180,.9),rgba(40,70,150,.9))}
+.dlg .btn:disabled,.popwin .btn:disabled{opacity:.5}
+.dlg [style*="color:#1c1c1e"]{color:#fff!important}
+.dlg .inp,.popwin .inp{background:#fff;color:#111;border-radius:6px;border:1px solid rgba(0,0,0,.5);box-shadow:inset 0 2px 3px rgba(0,0,0,.25)}
+.popwin{width:250px;overflow:hidden;border-radius:11px}
+.pw-t{position:relative;background:none;color:#fff;font-size:15px;font-weight:700;padding:11px 36px 2px;justify-content:center;text-align:center;text-shadow:0 -1px 0 rgba(0,0,0,.6);cursor:move}
+.pw-t button{position:absolute;right:8px;top:8px;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.85);font-size:11px;line-height:1;color:#fff;
+  background:radial-gradient(circle at 50% 30%,#6a6f7a,#22252c);box-shadow:0 1px 3px rgba(0,0,0,.5)}
+.pw-b{position:relative;padding:6px 14px 14px;font-size:13.5px;color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,.45)}
+.pw-b p{font-size:13.5px;color:#e9efff;margin:5px 0}
+.pw-b .btn{font-size:14.5px;min-height:38px;padding:7px 8px;margin:7px 0 0}
+.popwin [style*="color:#1a2a44"]{color:#fff!important}
+.popwin [style*="color:#a11"]{color:#ffd0d0!important;background:rgba(0,0,0,.25);border-radius:6px;padding:4px}
+.popwin .eula{color:#333;text-shadow:none;text-align:left}
+.popwin .cap-c{color:#111;text-shadow:none}
+@media (prefers-reduced-motion:reduce){.dlg,.popwin{animation:none}}
+/* notification banner like iOS 5/6: black glossy bar over the status bar */
+.banner{top:0;left:0;right:0;border-radius:0;padding:30px 14px 10px;gap:10px;align-items:center;color:#fff;font-size:13.5px;font-weight:600;
+  background:linear-gradient(#4a4c52,#1d1e22 48%,#050506 52%,#121316);border-bottom:1px solid #000;
+  box-shadow:inset 0 -1px 0 rgba(255,255,255,.12),0 3px 10px rgba(0,0,0,.5);text-shadow:0 -1px 0 #000;transform:translateY(-100%)}
+.banner.show{transform:translateY(0)}
+.b-ico{width:22px;height:22px;border-radius:5px;font-size:12px;background:linear-gradient(#7fb6ff,#2f6fe0);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 1px rgba(0,0,0,.6)}
+.b-txt{line-height:1.3}
 </style>
 </head>
 <body>
