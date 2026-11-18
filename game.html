@@ -746,6 +746,50 @@ font-weight:700;padding:7px 11px;border-radius:10px;font-family:inherit;cursor:p
 .banner.show{transform:translateY(0)}
 .b-ico{width:22px;height:22px;border-radius:5px;font-size:12px;background:linear-gradient(#7fb6ff,#2f6fe0);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 1px rgba(0,0,0,.6)}
 .b-txt{line-height:1.3}
+
+/* ---- one skin per popup, all from the skeuomorphic iPhone era ---- */
+/* defrag: brushed aluminium */
+.pop-defrag{background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,rgba(0,0,0,.04) 1px 2px),linear-gradient(#e9ebee,#b9bdc4);border-color:#fff;color:#2a2d33}
+.pop-defrag .pw-t,.pop-defrag .pw-b,.pop-defrag .pw-b p,.pop-defrag [style*="color:#1a2a44"]{color:#2a2d33!important;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+.popwin.pop-defrag .btn,.popwin.pop-defrag .btn.primary{color:#2a2d33!important;text-shadow:0 1px 0 #fff;background:linear-gradient(#fdfdfd,#e4e6ea 50%,#d3d6dc 50%,#dfe2e6);border-color:#8a8f98}
+/* junk: yellow legal pad from Notes */
+.pop-junk{background:linear-gradient(#7a4a2a,#5a341c) top/100% 38px no-repeat,repeating-linear-gradient(#fcf5b0 0 22px,#e3d98e 22px 23px);border-color:#fff8d0;color:#3a2a10}
+.pop-junk::before{display:none}
+.pop-junk::after{content:'';position:absolute;left:22px;top:38px;bottom:0;width:2px;background:#e8a6a0;pointer-events:none}
+.pop-junk .pw-t{color:#fff3d6;text-shadow:0 -1px 0 #2a1608;font-family:'Marker Felt','Comic Sans MS',cursive}
+.pop-junk .pw-b,.pop-junk .pw-b p{color:#3a2a10!important;text-shadow:none;font-family:'Marker Felt','Comic Sans MS',cursive;font-size:15px}
+.popwin.pop-junk .btn,.popwin.pop-junk .btn.primary{color:#fff!important;background:linear-gradient(#a8744a,#7a4a2a 50%,#653b20 50%,#74462a);border-color:#3a2008}
+/* cpu: frosty Weather blue */
+.pop-cpu{background:linear-gradient(#8fd0f5,#4a9fe0 55%,#2b74c2);border-color:#fff}
+.pop-cpu .pw-t,.pop-cpu .pw-b,.pop-cpu .pw-b p{color:#fff!important;text-shadow:0 1px 2px rgba(0,40,90,.85)}
+.popwin.pop-cpu .btn,.popwin.pop-cpu .btn.primary{background:linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,.3) 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.3));border-color:rgba(20,80,150,.6)}
+/* rogue: black "slide to power off" with red button */
+.pop-rogue{background:linear-gradient(#3a3a3e,#0c0c0e 50%,#000 51%,#141416);border-color:#9a9aa0}
+.popwin.pop-rogue .btn,.popwin.pop-rogue .btn.primary{background:linear-gradient(#ff8a80,#e8302a 50%,#c41a14 50%,#d8241e);border-color:#5a0806}
+/* terms: Settings pinstripes with a white grouped cell */
+.pop-terms{background:repeating-linear-gradient(90deg,#c5ccd4 0 3px,#cbd2d8 3px 7px);border-color:#fff;color:#3d4659}
+.pop-terms::before{display:none}
+.pop-terms .pw-t{color:#4c566c;text-shadow:0 1px 0 rgba(255,255,255,.75)}
+.pop-terms .pw-b,.pop-terms .pw-b p{color:#3d4659!important;text-shadow:0 1px 0 rgba(255,255,255,.7)}
+.pop-terms .eula{border:1px solid #a9b0ba;border-radius:9px;box-shadow:0 1px 0 #fff}
+.popwin.pop-terms .btn,.popwin.pop-terms .btn.primary{color:#fff!important;background:linear-gradient(#7ea2e8,#4a7fe3 50%,#2556c4 50%,#3a68d0);border-color:#1a3f8f}
+/* bomb: Game Center green felt in a wooden frame */
+.pop-bomb{background:radial-gradient(circle at 50% 40%,#3f8a4c,#23502b 80%);border:6px solid #8a5a32;box-shadow:inset 0 0 0 2px #c58c55,0 12px 34px rgba(0,0,0,.65)}
+.popwin.pop-bomb .btn,.popwin.pop-bomb .btn.primary{background:linear-gradient(#ffe08a,#e8b33a 50%,#d39a1c 50%,#e0a82a);color:#3a2400!important;text-shadow:0 1px 0 rgba(255,255,255,.5);border-color:#6a4a10}
+/* cookies: wooden bookshelf */
+.pop-cookies{background:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 2px,transparent 2px 9px),linear-gradient(#b07a46,#7a4a26);border-color:#e8c79a}
+.pop-cookies .pw-b,.pop-cookies .pw-b p,.pop-cookies .pw-t{color:#fff4e2!important;text-shadow:0 -1px 0 #3a1e08}
+.pop-cookies .cookie-area{background:#fbf6e9;box-shadow:inset 0 2px 6px rgba(0,0,0,.35)}
+/* captcha: lock screen with the silver slide-to-unlock track */
+.pop-captcha{background:linear-gradient(#2b2b30,#000);border-color:#c8c8cc}
+.pop-captcha .cap-c{background:linear-gradient(#fafafa,#d8d8dc);border-radius:9px}
+.popwin.pop-captcha .btn,.popwin.pop-captcha .btn.primary{color:#222!important;text-shadow:0 1px 0 #fff;background:linear-gradient(#fdfdfd,#d5d5d9 50%,#bdbdc2 50%,#cbcbcf);border-color:#555;border-radius:12px}
+/* router: Wi-Fi settings, glossy blue-grey navigation bar on linen */
+.pop-router{background:linear-gradient(#b4c0d0,#8a9cb5 30px,#6d84a2 44px,transparent 44px),repeating-linear-gradient(45deg,#3a3d44 0 2px,#41444b 2px 4px);border-color:#d8dee8}
+.pop-router::before{display:none}
+.pop-router .pw-t{padding:12px 36px 10px;text-shadow:0 -1px 0 #2d3d55}
+.pop-router .pw-b{padding-top:12px}
+.popwin.pop-router .btn,.popwin.pop-router .btn.primary{background:linear-gradient(#a9b9cf,#7b91b0 50%,#647c9e 50%,#7088aa);border-color:#2d3d55}
 </style>
 </head>
 <body>
@@ -3959,7 +4003,7 @@ function showPopup(forced){
   notify('popup','🛑 POPUP ALERT: '+tpl.title+' — complete it for +'+tpl.r+' points.');
   const screen=$('screen');
   const win=el('div','popwin');
-  win.id='randPopup';
+  win.id='randPopup';win.classList.add('pop-'+tpl.id);
   const maxX=Math.max(6,screen.clientWidth-238),maxY=Math.max(60,screen.clientHeight-320);
   win.style.left=Math.max(6,Math.random()*maxX)+'px';
   win.style.top=Math.max(60,Math.random()*maxY)+'px';
