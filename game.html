@@ -790,6 +790,9 @@ font-weight:700;padding:7px 11px;border-radius:10px;font-family:inherit;cursor:p
 .pop-router .pw-t{padding:12px 36px 10px;text-shadow:0 -1px 0 #2d3d55}
 .pop-router .pw-b{padding-top:12px}
 .popwin.pop-router .btn,.popwin.pop-router .btn.primary{background:linear-gradient(#a9b9cf,#7b91b0 50%,#647c9e 50%,#7088aa);border-color:#2d3d55}
+.tw-word{font-size:30px;font-weight:800;letter-spacing:.04em;margin:6px 0 8px;text-align:center}
+.tw-bar{height:6px;border-radius:3px;background:rgba(0,0,0,.18);overflow:hidden;margin:8px 0 2px}
+.tw-bar span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#e8463a,#f2b600)}
 </style>
 </head>
 <body>
@@ -3978,7 +3981,7 @@ let popupOpen=false,popupCD=false,popupCur=null;
 const POPUPS=[
   {id:'bugcache',title:'Clear Bug Cache',r:1,body:'<p>Purge memory 5 times.</p><button class="btn primary" id="pb1">Purge (0/5)</button>'},
   {id:'defrag',title:'Defragment Brain',r:4,body:'<p>Do not move for 60 seconds. No mouse, no keys, no switching tabs.</p><p id="pb2t" style="font-size:26px;text-align:center;color:#1a2a44">60</p><button class="btn primary" id="pb2">Start</button>'},
-  {id:'junk',title:'Remove Junk Code',r:2,body:'<p>Write one honest coding comment.</p><input class="inp" id="pb3i" placeholder="// I hope this works"><button class="btn primary" id="pb3">Submit</button>'},
+  {id:'junk',title:'Type It Fast',r:2,body:'<p id="pb3h">Type the word before 4 seconds run out.</p><p class="tw-word" id="pb3w">?</p><input class="inp" id="pb3i" placeholder="type here" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" disabled><div class="tw-bar"><span id="pb3b"></span></div><button class="btn primary" id="pb3">Start</button>'},
   {id:'cpu',title:'Cool Down CPU',r:2,body:'<p>Hold the button for 3 seconds.</p><button class="btn primary" id="pb4">Hold (0.0/3s)</button>'},
   {id:'rogue',title:'Terminate Rogue Process',r:2,body:'<p style="text-align:center;font-family:monospace;color:#a11;font-weight:700">definitely_not_a_virus.exe</p><button class="btn primary" id="pb5">Terminate</button>'},
   {id:'terms',title:'Accept Terms',r:3,body:'<p>Scroll to the bottom.</p><div class="eula" id="pb6e">By continuing you agree to sell your soul to the coding gods. This agreement lasts for all eternity. You promise to write clean code, document your functions and never use var again. You also promise to feed your virtual pet. Scroll further. Keep scrolling. Almost there. This is the end of the EULA. Congratulations, you made it, now accept it.</div><button class="btn primary" id="pb6" disabled>I agree to sell my soul</button>'},
@@ -4083,11 +4086,25 @@ function initPopup(tpl,win){
     };
   }
   if(tpl.id==='junk'){
-    q('#pb3').onclick=()=>{
-      const v=q('#pb3i').value.trim();
-      if(v.length<5)return toast('Write a comment first.');
-      finishPopup(tpl.r);
+    const W=["kumquat", "zeppelin", "wobble", "quasar", "burrito", "fjord", "gizmo", "pickle", "walrus", "noodle", "mango", "tundra", "jellybean", "crumpet", "yodel", "vortex", "pumice", "turnip", "goblin", "ukulele", "spatula", "hamster", "lasagna", "cobweb", "kazoo", "platypus", "dumpling", "gargoyle", "marmalade", "nebula", "pretzel", "quokka", "raccoon", "sardine", "trombone", "umbrella", "velcro", "waffle", "xylophone", "yeti", "zucchini", "anchovy", "blizzard", "cactus", "doorknob", "eggplant", "flamingo", "giraffe", "hiccup", "igloo", "jackal", "ketchup", "lobster", "muffin", "nugget", "octopus", "parsnip", "quiche", "radish", "snorkel", "teapot", "unicorn", "vinegar", "wombat", "yogurt", "zigzag", "bagel", "catapult", "dandelion", "biscuit", "kangaroo", "moustache", "sprocket", "taco", "wigwam"];
+    const inp=q('#pb3i'),bt=q('#pb3'),wd=q('#pb3w'),bar=q('#pb3b'),hd=q('#pb3h');
+    let word='',t0=0,raf=0,live=false;
+    const stop=()=>{live=false;cancelAnimationFrame(raf)};
+    const tick=()=>{
+      if(!live||!document.body.contains(bar))return stop();
+      const left=Math.max(0,4000-(performance.now()-t0));
+      bar.style.width=(left/40)+'%';
+      if(left<=0){stop();inp.disabled=true;hd.textContent='Too slow! The word was “'+word+'”.';bt.textContent='Try again';bt.style.display='';beep();return}
+      raf=requestAnimationFrame(tick);
     };
+    const go=()=>{
+      word=W[Math.floor(Math.random()*W.length)];
+      wd.textContent=word;hd.textContent='Type it! You have 4 seconds.';
+      inp.value='';inp.disabled=false;inp.focus();bt.style.display='none';
+      t0=performance.now();live=true;tick();
+    };
+    bt.onclick=go;
+    inp.oninput=()=>{if(live&&inp.value.trim().toLowerCase()===word){stop();finishPopup(tpl.r)}};
   }
   if(tpl.id==='cpu'){
     const btn=q('#pb4');let held=0,iv=null;
