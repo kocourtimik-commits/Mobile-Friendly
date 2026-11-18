@@ -4094,7 +4094,7 @@ function initPopup(tpl,win){
       if(!live||!document.body.contains(bar))return stop();
       const left=Math.max(0,4000-(performance.now()-t0));
       bar.style.width=(left/40)+'%';
-      if(left<=0){stop();inp.disabled=true;hd.textContent='Too slow! The word was “'+word+'”.';bt.textContent='Try again';bt.style.display='';beep();return}
+      if(left<=0){stop();inp.disabled=true;hd.textContent='Too slow! The word was “'+word+'”. No points.';beep();setTimeout(()=>closePopup(win),1800);return}
       raf=requestAnimationFrame(tick);
     };
     const go=()=>{
